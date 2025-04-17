@@ -76,7 +76,7 @@
                 app:helperText=" ">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextGenre"
+                    android:id="@+id/editTextAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
