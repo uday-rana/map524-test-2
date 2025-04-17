@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.udayrana.roamto_uday.databinding.ActivityPlaceFormBinding
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Locale
 
 class PlaceFormActivity : AppCompatActivity() {
@@ -57,6 +58,14 @@ class PlaceFormActivity : AppCompatActivity() {
             binding.textInputLayoutAddress.error = "Enter address"
             error = true
         }
+        val sdf = SimpleDateFormat("yyyy-mm-dd", Locale.getDefault())
+        sdf.isLenient = false
+        val date = try {
+            sdf.parse(dateInput)
+        } catch (ex: Exception) {
+            binding.textInputLayoutDate.error = "Date must be in the format yyyy-mm-dd"
+            error = true
+        }
         if (error) {
             return
         }
@@ -89,7 +98,7 @@ class PlaceFormActivity : AppCompatActivity() {
             title = titleInput,
             description = descriptionInput,
             address = addressInput,
-            date = dateInput,
+            date = date.toString(),
             longitude = foundAddress.longitude,
             latitude = foundAddress.latitude
         )

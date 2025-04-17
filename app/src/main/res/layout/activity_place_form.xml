@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:hint="@string/date"
-                app:helperText=" ">
+                app:helperText="yyyy-mm-dd">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDate"
