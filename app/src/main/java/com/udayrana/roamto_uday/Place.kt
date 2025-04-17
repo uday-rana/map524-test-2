@@ -9,7 +9,7 @@ data class Place(
     @PrimaryKey(autoGenerate = true) val uid: Int,
     val title: String,
     val description: String,
-    val date: Long,
+    val date: String,
     val address: String,
     val latitude: Double,
     val longitude: Double

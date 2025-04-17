@@ -7,4 +7,6 @@
     <string name="address">Address</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
+    <string name="could_not_connect_to_geocoder_services">Could not connect to geocoder services</string>
+    <string name="no_coordinates_found">No coordinates found</string>
 </resources>
