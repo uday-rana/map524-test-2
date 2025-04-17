@@ -11,6 +11,7 @@ data class Place(
     val title: String,
     val description: String,
     val date: Date,
+    val address: String,
     val latitude: Double,
     val longitude: Double
 ) : Serializable
