@@ -3,6 +3,7 @@ package com.udayrana.roamto_uday
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.udayrana.roamto_uday.databinding.PlaceItemBinding
 
 class PlaceAdapter (
     private val placeList: MutableList<Place>,
@@ -23,7 +24,7 @@ class PlaceAdapter (
         val place = placeList[position]
 
         holder.binding.textViewPlaceTitle.text = place.title
-        holder.binding.textViewPlaceDate.text = place.date
+        holder.binding.textViewPlaceDate.text = place.date.toString()
 
         holder.binding.linearLayoutItemText.setOnClickListener {
             placeClickListener.displayPlaceDetails(

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RoamTO</string>
+    <string name="title">Place Title</string>
+    <string name="date">Place Date</string>
 </resources>
