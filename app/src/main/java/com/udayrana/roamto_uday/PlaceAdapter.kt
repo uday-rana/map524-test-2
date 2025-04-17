@@ -24,12 +24,13 @@ class PlaceAdapter(
         val place = placeList[position]
 
         holder.binding.textViewPlaceTitle.text = place.title
-        holder.binding.textViewPlaceDate.text = place.date.toString()
+        holder.binding.textViewPlaceDate.text = place.date
 
         holder.binding.linearLayoutItemText.setOnClickListener {
             placeClickListener.displayPlaceDetails(
                 place
             )
         }
+        holder.binding.imageViewDelete.setOnClickListener { placeClickListener.deletePlace(place) }
     }
 }

@@ -3,10 +3,12 @@ package com.udayrana.roamto_uday
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.udayrana.roamto_uday.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
@@ -47,9 +49,9 @@ class MainActivity : AppCompatActivity(), PlaceClickListener {
     @SuppressLint("NotifyDataSetChanged")
     private fun refreshPlaceRecyclerView() {
         lifecycleScope.launch {
-            val bookListFromRoom = placeDao.getAll().toMutableList()
+            val placeListFromRoom = placeDao.getAll().toMutableList()
             placeList.clear()
-            placeList.addAll(bookListFromRoom)
+            placeList.addAll(placeListFromRoom)
             placeAdapter.notifyDataSetChanged()
         }
     }
@@ -62,5 +64,27 @@ class MainActivity : AppCompatActivity(), PlaceClickListener {
         val displayPlaceDetailsIntent = Intent(this@MainActivity, PlaceDetailsActivity::class.java)
         displayPlaceDetailsIntent.putExtra("place", place)
         startActivity(displayPlaceDetailsIntent)
+    }
+
+    override fun deletePlace(place: Place) {
+        MaterialAlertDialogBuilder(this@MainActivity).setTitle("Delete place?")
+            .setMessage("Are you sure you want to delete ${place.title}")
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+            .setPositiveButton("Delete") { dialog, _ ->
+                lifecycleScope.launch {
+                    placeDao.delete(place)
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Deleted ${place.title}",
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                    refreshPlaceRecyclerView()
+                }
+                dialog.dismiss()
+            }
+            .show()
     }
 }
