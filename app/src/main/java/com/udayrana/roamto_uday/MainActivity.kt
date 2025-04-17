@@ -25,7 +25,12 @@ class MainActivity : AppCompatActivity(), PlaceClickListener {
         placeAdapter = PlaceAdapter(placeList, this)
         binding.recyclerViewPlaceList.adapter = placeAdapter
         binding.recyclerViewPlaceList.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewPlaceList.addItemDecoration(DividerItemDecoration(this,LinearLayoutManager.VERTICAL))
+        binding.recyclerViewPlaceList.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
 
         placeDao = AppDatabase.getInstance(this).placeDao()
 

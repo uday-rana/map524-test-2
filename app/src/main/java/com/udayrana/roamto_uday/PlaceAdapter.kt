@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.udayrana.roamto_uday.databinding.PlaceItemBinding
 
-class PlaceAdapter (
+class PlaceAdapter(
     private val placeList: MutableList<Place>,
     private val placeClickListener: PlaceClickListener
 ) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
