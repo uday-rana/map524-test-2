@@ -24,6 +24,8 @@
         <activity
             android:name=".PlaceFormActivity"
             android:exported="false" />
+        <activity android:name=".PlaceDetailsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
