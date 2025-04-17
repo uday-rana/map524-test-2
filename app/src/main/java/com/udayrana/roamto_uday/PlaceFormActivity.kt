@@ -4,6 +4,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -34,6 +35,7 @@ class PlaceFormActivity : AppCompatActivity() {
         binding.textInputLayoutDescription.error = null
         binding.textInputLayoutDate.error = null
         binding.textInputLayoutAddress.error = null
+        binding.textViewGeocoderError.visibility = View.GONE
         var error = false
 
         val titleInput = binding.editTextTitle.text.toString().trim()
@@ -70,28 +72,32 @@ class PlaceFormActivity : AppCompatActivity() {
             return
         }
 
-        val foundAddress: Address? = try {
+        var foundAddress: Address?
+        var geocoderErrorMessage: String? = null
+
+        try {
             val searchResults: MutableList<Address>? = geocoder.getFromLocationName(addressInput, 1)
-            when {
-                searchResults == null -> {
-                    binding.textViewGeocoderError.text =
-                        getString(R.string.could_not_connect_to_geocoder_services)
-                    null
-                }
 
-                searchResults.isEmpty() -> {
-                    binding.textViewGeocoderError.text = getString(R.string.no_coordinates_found)
-                    null
-                }
-
-                else -> searchResults[0]
+            if (searchResults == null) {
+                geocoderErrorMessage = getString(R.string.could_not_connect_to_geocoder_services)
+                foundAddress = null
+            } else if (searchResults.isEmpty()) {
+                geocoderErrorMessage = getString(R.string.no_coordinates_found)
+                foundAddress = null
+            } else {
+                foundAddress = searchResults[0]
             }
         } catch (ex: Exception) {
             Log.e("RoamTO_UDAY", "Error: ", ex)
-            null
+            geocoderErrorMessage = getString(R.string.could_not_connect_to_geocoder_services)
+            foundAddress = null
         }
 
-        if (foundAddress == null) return
+        if (foundAddress == null) {
+            binding.textViewGeocoderError.visibility = View.VISIBLE
+            binding.textViewGeocoderError.text = geocoderErrorMessage
+            return
+        }
 
         val place = Place(
             uid = 0,
