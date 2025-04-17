@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">RoamTO</string>
-    <string name="title">Place Title</string>
-    <string name="date">Place Date</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
     <string name="add_a_place">Add a Place</string>
+    <string name="description">Description</string>
+    <string name="address">Address</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 </resources>

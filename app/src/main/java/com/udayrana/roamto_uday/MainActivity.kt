@@ -1,5 +1,6 @@
 package com.udayrana.roamto_uday
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.udayrana.roamto_uday.databinding.ActivityMainBinding
@@ -13,7 +14,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val db = AppDatabase.getInstance(this)
-        placeDao = db.placeDao()
+        placeDao = AppDatabase.getInstance(this).placeDao()
+
+        binding.buttonAddPlace.setOnClickListener { addPlace() }
+    }
+
+    private fun addPlace() {
+        startActivity(Intent(this@MainActivity, PlaceFormActivity::class.java))
     }
 }
