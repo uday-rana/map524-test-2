@@ -78,7 +78,7 @@ class PlaceFormActivity : AppCompatActivity() {
                 else -> searchResults[0]
             }
         } catch (ex: Exception) {
-            Log.d("RoomTO_UDAY", "Error: ", ex)
+            Log.e("RoamTO_UDAY", "Error: ", ex)
             null
         }
 

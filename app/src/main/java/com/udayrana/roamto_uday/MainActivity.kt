@@ -59,6 +59,8 @@ class MainActivity : AppCompatActivity(), PlaceClickListener {
     }
 
     override fun displayPlaceDetails(place: Place) {
-        startActivity(Intent(this@MainActivity, PlaceDetailsActivity::class.java))
+        val displayPlaceDetailsIntent = Intent(this@MainActivity, PlaceDetailsActivity::class.java)
+        displayPlaceDetailsIntent.putExtra("place", place)
+        startActivity(displayPlaceDetailsIntent)
     }
 }
