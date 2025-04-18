@@ -57,6 +57,14 @@
             android:contentDescription="@string/delete"
             android:src="@drawable/outline_delete_24" />
 
+        <ImageView
+            android:id="@+id/imageViewEdit"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/edit"
+            android:src="@drawable/outline_edit_24" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

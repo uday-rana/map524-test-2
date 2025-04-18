@@ -11,12 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import com.udayrana.roamto_uday.databinding.ActivityPlaceFormBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class PlaceFormActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlaceFormBinding
     private lateinit var placeDao: PlaceDao
     private lateinit var geocoder: Geocoder
+    private var placeToEdit: Place? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,22 @@ class PlaceFormActivity : AppCompatActivity() {
 
         binding.buttonCancel.setOnClickListener { finish() }
         binding.buttonSubmitForm.setOnClickListener { submitForm() }
+
+        placeToEdit = intent.getSerializableExtra("place") as? Place
+
+        if (placeToEdit != null) {
+            binding.editTextTitle.setText(placeToEdit!!.title)
+            binding.editTextDescription.setText(placeToEdit!!.description)
+            binding.editTextDate.setText(
+                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+                    placeToEdit!!.date
+                )
+            )
+            binding.editTextAddress.setText(placeToEdit!!.address)
+            binding.materialToolbar.title = "Edit Place"
+        } else {
+            binding.materialToolbar.title = "Add a Place"
+        }
     }
 
     private fun submitForm() {
@@ -60,14 +78,17 @@ class PlaceFormActivity : AppCompatActivity() {
             binding.textInputLayoutAddress.error = "Enter address"
             error = true
         }
-        val sdf = SimpleDateFormat("yyyy-mm-dd", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         sdf.isLenient = false
-        val date = try {
+        val date: Date? = try {
             sdf.parse(dateInput)
         } catch (ex: Exception) {
-            binding.textInputLayoutDate.error = "Date must be in the format yyyy-mm-dd"
+            binding.textInputLayoutDate.error =
+                "Date must be in the format YYYY-MM-DD (e.g. 2025-04-17)"
             error = true
+            null
         }
+
         if (error) {
             return
         }
@@ -100,25 +121,31 @@ class PlaceFormActivity : AppCompatActivity() {
         }
 
         val place = Place(
-            uid = 0,
+            uid = placeToEdit?.uid ?: 0,
             title = titleInput,
             description = descriptionInput,
             address = addressInput,
-            date = date.toString(),
+            date = date!!,
             longitude = foundAddress.longitude,
             latitude = foundAddress.latitude
         )
 
-        lifecycleScope.launch {
-            placeDao.insert(place)
+        if (placeToEdit != null) {
+            lifecycleScope.launch {
+                placeDao.update(place)
+            }
+        } else {
+            lifecycleScope.launch {
+                placeDao.insert(place)
+            }
         }
+
+        val action = if (placeToEdit != null) "Updated" else "Added"
         Toast.makeText(
             this@PlaceFormActivity,
-            "Added ${place.title}",
+            "$action ${place.title}",
             Toast.LENGTH_LONG
         ).show()
         finish()
-
-
     }
 }

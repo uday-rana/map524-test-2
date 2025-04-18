@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:title="Add a Place"
             app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -43,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
                 android:hint="@string/title"
                 app:helperText=" ">
 
@@ -58,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
                 android:hint="@string/description"
                 app:helperText=" ">
 
@@ -73,14 +74,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
                 android:hint="@string/date"
-                app:helperText="yyyy-mm-dd">
+                app:helperText="YYYY-MM-DD">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="date" />
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -88,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
                 android:hint="@string/address"
                 app:helperText=" ">
 

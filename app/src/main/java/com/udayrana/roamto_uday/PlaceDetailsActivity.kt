@@ -10,6 +10,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.udayrana.roamto_uday.databinding.ActivityPlaceDetailsBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PlaceDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityPlaceDetailsBinding
@@ -31,11 +33,21 @@ class PlaceDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             return
         }
 
-        binding.textViewTitle.text = "Title: ${place!!.title}"
-        binding.textViewDescription.text = "Description: ${place!!.description}"
-        binding.textViewDate.text = "Date: ${place!!.date}"
+        binding.materialToolbar.title = place!!.title
+        binding.textViewDescription.text = place!!.description
+        binding.textViewDate.text = "Date: ${
+            SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(
+                place!!.date
+            )
+        }"
         binding.textViewAddress.text = "Address: ${place!!.address}"
-        binding.textViewCoordinates.text = "Coordinates: ${place!!.latitude}, ${place!!.longitude}"
+        binding.textViewCoordinates.text =
+            "Coordinates: ${String.format("%.6f", place!!.latitude)}, ${
+                String.format(
+                    "%.6f",
+                    place!!.longitude
+                )
+            }"
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment

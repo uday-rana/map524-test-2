@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), PlaceClickListener {
 
     override fun deletePlace(place: Place) {
         MaterialAlertDialogBuilder(this@MainActivity).setTitle("Delete place?")
-            .setMessage("Are you sure you want to delete ${place.title}")
+            .setMessage("Are you sure you want to delete ${place.title}?")
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.cancel()
             }
@@ -86,5 +86,11 @@ class MainActivity : AppCompatActivity(), PlaceClickListener {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    override fun editPlace(place: Place) {
+        val editPlaceIntent = Intent(this@MainActivity, PlaceFormActivity::class.java)
+        editPlaceIntent.putExtra("place", place)
+        startActivity(editPlaceIntent)
     }
 }

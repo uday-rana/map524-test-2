@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.udayrana.roamto_uday.databinding.PlaceItemBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PlaceAdapter(
     private val placeList: MutableList<Place>,
@@ -24,7 +26,8 @@ class PlaceAdapter(
         val place = placeList[position]
 
         holder.binding.textViewPlaceTitle.text = place.title
-        holder.binding.textViewPlaceDate.text = place.date
+        holder.binding.textViewPlaceDate.text =
+            SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(place.date)
 
         holder.binding.linearLayoutItemText.setOnClickListener {
             placeClickListener.displayPlaceDetails(
@@ -32,5 +35,6 @@ class PlaceAdapter(
             )
         }
         holder.binding.imageViewDelete.setOnClickListener { placeClickListener.deletePlace(place) }
+        holder.binding.imageViewEdit.setOnClickListener { placeClickListener.editPlace(place) }
     }
 }
